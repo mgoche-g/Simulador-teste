@@ -33,14 +33,13 @@ massDiv.addEventListener('mousedown', (event) => {
 
 document.addEventListener('mouseup', () => {
     isDragging = false;
-    updateResults();
 });
 
 document.addEventListener('mousemove', (event) => {
     if (isDragging) {
         const rect = springArea.getBoundingClientRect();
         const offsetX = event.clientX - rect.left;
-        massPosition = Math.min(Math.max(offsetX - 15, 0), springCanvas.width - 30); // Limita a posição da massa
+        massPosition = Math.min(Math.max(offsetX - 15, 0), springCanvas.width - 30);
         massDiv.style.left = `${massPosition}px`;
         updateResults();
     }
@@ -84,13 +83,12 @@ function drawEnergyChart(amplitude, velocity) {
 function drawSpringAndMass(displacement) {
     springCtx.clearRect(0, 0, springCanvas.width, springCanvas.height);
     
-    const springLength = 100; // comprimento da mola
     const springY = 100; // posição Y da mola
 
     // Desenha a mola
     springCtx.beginPath();
     springCtx.moveTo(20, springY);
-    for (let i = 0; i <= springLength; i += 10) {
+    for (let i = 0; i <= 100; i += 10) {
         const offsetY = (i % 20 === 0) ? 10 : -10; // cria a forma da mola
         springCtx.lineTo(20 + i, springY + offsetY);
     }
