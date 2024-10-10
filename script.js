@@ -21,6 +21,7 @@ massDiv.style.backgroundColor = 'red';
 massDiv.style.borderRadius = '50%';
 massDiv.style.position = 'absolute';
 massDiv.style.left = '0px';
+massDiv.style.top = '80px'; // Ajuste a posição Y da massa
 
 massDiv.addEventListener('mousedown', (event) => {
     isDragging = true;
@@ -34,7 +35,7 @@ document.addEventListener('mousemove', (event) => {
     if (isDragging) {
         const rect = springCanvas.getBoundingClientRect();
         const offsetX = event.clientX - rect.left;
-        massPosition = Math.min(Math.max(offsetX - 15, 0), springCanvas.width - 30);
+        massPosition = Math.min(Math.max(offsetX - 15, 0), springCanvas.width - 30); // Limita a posição da massa
         massDiv.style.left = `${massPosition}px`;
         updateResults();
     }
