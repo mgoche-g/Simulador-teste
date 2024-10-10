@@ -10,9 +10,12 @@ const springCanvas = document.getElementById('springCanvas');
 const springCtx = springCanvas.getContext('2d');
 
 let massPosition = 0; // posição inicial
-let isDragging = false;
+let isAnimating = false;
 let massValue = 1;
 let kValue = 10;
+let amplitude = 0.5; // amplitude em metros
+let angularFrequency = 0; // frequência angular
+let startTime = 0;
 
 const massDiv = document.getElementById('massDiv');
 massDiv.style.width = '30px';
@@ -23,16 +26,16 @@ massDiv.style.position = 'absolute';
 massDiv.style.left = '0px';
 massDiv.style.top = '80px'; // Ajuste a posição Y da massa
 
-massDiv.addEventListener('mousedown', (event) => {
-    isDragging = true;
+massDiv.addEventListener('mousedown', () => {
+    isAnimating = false;
 });
 
 document.addEventListener('mouseup', () => {
-    isDragging = false;
+    isAnimating = false;
 });
 
 document.addEventListener('mousemove', (event) => {
-    if (isDragging) {
+    if (!isAnimating) {
         const rect = springCanvas.getBoundingClientRect();
         const offsetX = event.clientX - rect.left;
         massPosition = Math.min(Math.max(offsetX - 15, 0), springCanvas.width - 30); // Limita a posição da massa
@@ -44,7 +47,11 @@ document.addEventListener('mousemove', (event) => {
 startButton.addEventListener('click', () => {
     massValue = parseFloat(massInput.value);
     kValue = parseFloat(kInput.value);
-    updateResults();
+    amplitude = parseFloat(massPosition / 100); // Use a posição inicial como amplitude
+    angularFrequency = Math.sqrt(kValue / massValue);
+    startTime = performance.now();
+    isAnimating = true;
+    animate();
 });
 
 function updateResults() {
@@ -56,7 +63,6 @@ function updateResults() {
     velocityDisplay.textContent = velocity.toFixed(2);
 
     drawEnergyChart(amplitude, velocity);
-    drawSpringAndMass(displacement);
 }
 
 function drawEnergyChart(amplitude, velocity) {
@@ -97,6 +103,17 @@ function drawSpringAndMass(displacement) {
     springCtx.fillRect(20 + displacement * 100 - 15, springY - 15, 30, 30); // massa como um quadrado
 }
 
+function animate() {
+    if (isAnimating) {
+        const currentTime = performance.now();
+        const elapsedTime = (currentTime - startTime) / 1000; // tempo em segundos
+        massPosition = amplitude * 100 * Math.sin(angularFrequency * elapsedTime); // MHS: A * sen(ωt)
+        massDiv.style.left = `${massPosition + 20}px`; // Ajusta a posição da massa
+        drawSpringAndMass(massPosition / 100);
+        requestAnimationFrame(animate);
+    }
+}
+
 // Inicializa a posição da massa
-massDiv.style.left = '0px';
+massDiv.style.left = '20px'; // Ajusta para que a massa comece na posição correta
 drawSpringAndMass(0);
