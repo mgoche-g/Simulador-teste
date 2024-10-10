@@ -6,26 +6,21 @@ const startButton = document.getElementById('start');
 const energyChartCanvas = document.getElementById('energyChart');
 const ctx = energyChartCanvas.getContext('2d');
 
-const springCanvas = document.createElement('canvas');
+const springCanvas = document.getElementById('springCanvas');
 const springCtx = springCanvas.getContext('2d');
-const springArea = document.getElementById('simulation-area');
-springArea.appendChild(springCanvas);
-springCanvas.width = springArea.clientWidth;
-springCanvas.height = 200;
 
 let massPosition = 0; // posição inicial
 let isDragging = false;
 let massValue = 1;
 let kValue = 10;
 
-const massDiv = document.createElement('div');
+const massDiv = document.getElementById('massDiv');
 massDiv.style.width = '30px';
 massDiv.style.height = '30px';
 massDiv.style.backgroundColor = 'red';
 massDiv.style.borderRadius = '50%';
 massDiv.style.position = 'absolute';
 massDiv.style.left = '0px';
-springArea.appendChild(massDiv);
 
 massDiv.addEventListener('mousedown', (event) => {
     isDragging = true;
@@ -37,7 +32,7 @@ document.addEventListener('mouseup', () => {
 
 document.addEventListener('mousemove', (event) => {
     if (isDragging) {
-        const rect = springArea.getBoundingClientRect();
+        const rect = springCanvas.getBoundingClientRect();
         const offsetX = event.clientX - rect.left;
         massPosition = Math.min(Math.max(offsetX - 15, 0), springCanvas.width - 30);
         massDiv.style.left = `${massPosition}px`;
