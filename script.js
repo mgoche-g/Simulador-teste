@@ -52,6 +52,7 @@ function updateResults() {
     velocityDisplay.textContent = velocity.toFixed(2);
 
     drawEnergyChart(amplitude, velocity);
+    drawSpringAndMass(displacement);
 }
 
 function drawEnergyChart(amplitude, velocity) {
@@ -70,3 +71,39 @@ function drawEnergyChart(amplitude, velocity) {
     ctx.fillText('Energia Potencial', 10, energyChartCanvas.height - potentialEnergy - 10);
     ctx.fillText('Energia Cinética', 160, energyChartCanvas.height - kineticEnergy - 10);
 }
+
+function drawSpringAndMass(displacement) {
+    const springLength = 100; // comprimento da mola
+    const springStartX = 20; // posição inicial da mola
+    const springEndX = springStartX + displacement * 100; // posição final com base no deslocamento
+    const springY = 50; // posição Y da mola
+
+    const springCanvas = document.createElement('canvas');
+    springCanvas.width = spring.clientWidth;
+    springCanvas.height = spring.clientHeight;
+    const springCtx = springCanvas.getContext('2d');
+
+    // Desenha a mola
+    springCtx.clearRect(0, 0, springCanvas.width, springCanvas.height);
+    springCtx.beginPath();
+    springCtx.moveTo(springStartX, springY);
+    for (let i = 0; i <= springLength; i += 10) {
+        const offsetY = (i % 20 === 0) ? 10 : -10; // cria a forma da mola
+        springCtx.lineTo(springStartX + i, springY + offsetY);
+    }
+    springCtx.lineTo(springEndX, springY);
+    springCtx.strokeStyle = 'black';
+    springCtx.stroke();
+
+    // Desenha a massa
+    springCtx.fillStyle = 'red';
+    springCtx.fillRect(springEndX - 15, springY - 15, 30, 30); // massa como um quadrado
+
+    // Adiciona a imagem da mola ao DOM
+    spring.innerHTML = ''; // Limpa a área da mola
+    spring.appendChild(springCanvas);
+}
+
+// Inicializa a posição da massa
+mass.style.left = '0px';
+drawSpringAndMass(0);
