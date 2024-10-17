@@ -1,4 +1,4 @@
-// Apenas para garantir que está funcionando
+// Apenas para garantir que est funcionando
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Página carregada');
 });
