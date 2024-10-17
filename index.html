@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulação Massa-Mola</title>
   <style>
-    /* Incluímos o CSS aqui para facilitar */
     body {
       display: flex;
       justify-content: center;
@@ -19,6 +18,12 @@
       position: relative;
       background-color: #ffffff;
       border: 2px solid #000;
+      display: flex;
+      justify-content: center;
+    }
+    #spring {
+      width: 10px;
+      background-color: #000;
     }
     #mass {
       width: 50px;
@@ -31,6 +36,7 @@
 </head>
 <body>
   <div id="container">
+    <div id="spring"></div>
     <div id="mass"></div>
   </div>
   <script src="script.js"></script>

@@ -10,6 +10,7 @@ let timeStep = 0.1; // Passo de tempo (s)
 
 // Elementos DOM
 const massElement = document.getElementById('mass');
+const springElement = document.getElementById('spring');
 const containerHeight = document.getElementById('container').clientHeight;
 const initialBottom = parseFloat(getComputedStyle(massElement).bottom);
 
@@ -25,6 +26,10 @@ function updateSystem() {
   // Atualiza posição do elemento gráfico
   let newBottom = initialBottom + (position * 100); // Converte metros para pixels
   massElement.style.bottom = `${newBottom}px`;
+
+  // Atualiza altura da mola
+  let newHeight = containerHeight - newBottom - massElement.clientHeight;
+  springElement.style.height = `${newHeight}px`;
 }
 
 // Simulação
