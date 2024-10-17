@@ -16,6 +16,7 @@ body {
   
   #spring {
     width: 10px;
+    height: 350px;
     background: repeating-linear-gradient(
       black,
       black 5px,
