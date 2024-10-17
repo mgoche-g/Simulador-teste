@@ -7,7 +7,7 @@ const damping = 0.05; // Coeficiente de amortecimento
 let position = 1.0; // Posição inicial (m)
 let velocity = 0.0; // Velocidade inicial (m/s)
 let timeStep = 0.1; // Passo de tempo (s)
-let amplitude = 0; // Amplitude (m)
+let amplitude = 1.0; // Amplitude inicial (m)
 const frequency = Math.sqrt(k / mass) / (2 * Math.PI); // Frequência (Hz)
 
 // Elementos DOM
