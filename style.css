@@ -1,8 +1,7 @@
 body {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     height: 100vh;
     background-color: #f0f0f0;
   }
@@ -13,9 +12,6 @@ body {
     position: relative;
     background-color: #ffffff;
     border: 2px solid #000;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
   }
   
   #spring {
@@ -27,6 +23,7 @@ body {
       white 10px
     );
     position: absolute;
+    top: 0;
   }
   
   #mass {
@@ -35,13 +32,5 @@ body {
     background-color: #ff6347;
     position: absolute;
     bottom: 0;
-  }
-  
-  #info {
-    margin-top: 20px;
-  }
-  
-  #info p {
-    margin: 5px 0;
   }
   
