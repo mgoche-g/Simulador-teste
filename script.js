@@ -7,7 +7,7 @@ const damping = 0.05; // Coeficiente de amortecimento
 let position = 1.0; // Posição inicial (m)
 let velocity = 0.0; // Velocidade inicial (m/s)
 let timeStep = 0.1; // Passo de tempo (s)
-let amplitude = 1.0; // Amplitude inicial (m)
+let amplitude = 0; // Amplitude (m)
 const frequency = Math.sqrt(k / mass) / (2 * Math.PI); // Frequência (Hz)
 
 // Elementos DOM
@@ -18,10 +18,6 @@ const frequencyElement = document.getElementById('frequency');
 const velocityElement = document.getElementById('velocity');
 const containerHeight = document.getElementById('container').clientHeight;
 const initialBottom = parseFloat(getComputedStyle(massElement).bottom);
-
-// Atualiza elementos de informação (valores estáticos para teste)
-frequencyElement.textContent = frequency.toFixed(2);
-amplitudeElement.textContent = amplitude.toFixed(2);
 
 // Função para atualizar o sistema
 function updateSystem() {
@@ -41,7 +37,12 @@ function updateSystem() {
   springElement.style.height = `${newHeight}px`;
   springElement.style.top = `${newBottom + massElement.clientHeight}px`;
 
+  // Atualiza amplitude (valor absoluto da posição)
+  amplitude = Math.max(amplitude, Math.abs(position));
+
   // Atualiza elementos de informação
+  amplitudeElement.textContent = amplitude.toFixed(2);
+  frequencyElement.textContent = frequency.toFixed(2);
   velocityElement.textContent = velocity.toFixed(2);
 }
 
@@ -50,3 +51,7 @@ setInterval(() => {
   updateSystem();
   console.log(`Posição: ${position.toFixed(2)} m, Velocidade: ${velocity.toFixed(2)} m/s`);
 }, timeStep * 1000);
+
+// Inicializa elementos de informação
+frequencyElement.textContent = frequency.toFixed(2);
+amplitudeElement.textContent = amplitude.toFixed(2);
