@@ -1,7 +1,8 @@
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
     background-color: #f0f0f0;
   }
@@ -34,5 +35,13 @@ body {
     background-color: #ff6347;
     position: absolute;
     bottom: 0;
+  }
+  
+  #info {
+    margin-top: 20px;
+  }
+  
+  #info p {
+    margin: 5px 0;
   }
   
