@@ -27,9 +27,10 @@ function updateSystem() {
   let newBottom = initialBottom + (position * 100); // Converte metros para pixels
   massElement.style.bottom = `${newBottom}px`;
 
-  // Atualiza altura da mola
+  // Atualiza altura e posição da mola
   let newHeight = containerHeight - newBottom - massElement.clientHeight;
   springElement.style.height = `${newHeight}px`;
+  springElement.style.top = `${newBottom + massElement.clientHeight}px`;
 }
 
 // Simulação
